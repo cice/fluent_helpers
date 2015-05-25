@@ -17,4 +17,8 @@ class TemplateStub
   def to_s
     @output_buffer
   end
+
+  def translate *keys
+    '.' + keys.map(&:to_s).join('.') + '.'
+  end
 end
