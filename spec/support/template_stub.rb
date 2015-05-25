@@ -3,6 +3,7 @@ require 'action_view/helpers'
 class TemplateStub
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::FormTagHelper
 
   attr_accessor :output_buffer
 

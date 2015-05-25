@@ -125,7 +125,7 @@ module FluentHelpers
               @action.call obj
             end
           else
-            if @only_if
+            if !@only_if.nil?
               only_if = @only_if.is_a?(::Proc) ? @only_if.call(obj) : @only_if
               return unless only_if
             end
