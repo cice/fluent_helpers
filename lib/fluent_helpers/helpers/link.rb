@@ -45,10 +45,11 @@ module FluentHelpers
       end
 
       def to_s
+        options = @classes.any? ? @options.merge(class: css_class) : @options
         if @block
-          @template.link_to @url_opts, @options.merge(class: css_class), &@block
+          @template.link_to @url_opts, options, &@block
         else
-          @template.link_to @name, @url_opts, @options.merge(class: css_class)
+          @template.link_to @name, @url_opts, options
         end
       end
     end

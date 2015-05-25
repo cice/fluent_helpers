@@ -2,6 +2,7 @@ module FluentHelpers
   module Helpers
     autoload :Generator,          'fluent_helpers/helpers/generator'
 
+    autoload :Base,               'fluent_helpers/helpers/base'
     autoload :Link,               'fluent_helpers/helpers/link'
     autoload :Using,              'fluent_helpers/helpers/using'
     autoload :Res,                'fluent_helpers/helpers/res'

@@ -15,16 +15,14 @@ module FluentHelpers
       def classes *classes, &block
         @classes += classes
         on_block block
-        self
       end
 
       def data kv, &block
-        on_block block
         kv.each do |k, v|
           k = 'data-' + k.to_s.gsub('_', '-')
           @options[k] = v
         end
-        self
+        on_block block
       end
 
       def style styles, &block
@@ -54,7 +52,6 @@ module FluentHelpers
       def method_missing name, *args, &block
         @options[name.to_sym] = args.any? ? args.first : true
         on_block block
-        self
       end
 
       def on_block block

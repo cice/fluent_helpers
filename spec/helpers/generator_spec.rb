@@ -36,4 +36,22 @@ describe FluentHelpers::Helpers::Generator do
       expect(described_class.instance_methods).to include :translate
     end
   end
+
+  describe 'Real world example', action_view: true do
+    let(:template) { TemplateStub.new }
+
+    it 'construct something' do
+      g = generator
+
+      g.div! class: 'wrapper' do
+        g.h1! 'Hello World'
+
+        g.div! class: 'content' do
+          g.p! 'Lorem ipsum'
+        end
+      end
+
+      expect(template.to_s).to eq %[<div class="wrapper"><h1>Hello World</h1><div class="content"><p>Lorem ipsum</p></div></div>]
+    end
+  end
 end
