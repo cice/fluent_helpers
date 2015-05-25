@@ -85,6 +85,20 @@ describe FluentHelpers::Helpers::Table do
     end
   end
 
+  describe 'Columns' do
+    example 'link_to'
+    example 'link_to icon_only'
+    example 'link_to via'
+
+    example 'named'
+    example 'unnamed'
+
+    example 'localized'
+
+    example 'as_samp'
+
+  end
+
   describe 'Actions' do
     before do
       allow(alice).to receive(:id).and_return 1
