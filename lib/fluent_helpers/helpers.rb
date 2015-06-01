@@ -9,6 +9,8 @@ module FluentHelpers
     autoload :Table,              'fluent_helpers/helpers/table'
     autoload :Res,                'fluent_helpers/helpers/res'
 
+    autoload :Icn,                'fluent_helpers/helpers/icn'
+
     include Using::Mixin
 
     def btn

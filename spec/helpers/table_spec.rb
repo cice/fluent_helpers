@@ -96,7 +96,6 @@ describe FluentHelpers::Helpers::Table do
     example 'localized'
 
     example 'as_samp'
-
   end
 
   describe 'Actions' do
