@@ -21,10 +21,8 @@ module FluentHelpers
       def to_s
         @type ||= 'default'
         @_.div class: "panel panel-#{@type}" do
-          if @name
-            @_.div! @name, class: 'panel-heading'
-          end
-          @_.div! class: 'panel-body', &@block
+          build_heading
+          build_body
         end
       end
 
@@ -32,6 +30,17 @@ module FluentHelpers
         @name = name
         on_block block if block
         self
+      end
+
+      protected
+      def build_body
+        @_.div! class: 'panel-body', &@block
+      end
+
+      def build_heading
+        if @name
+          @_.div! @name, class: 'panel-heading'
+        end
       end
     end
   end

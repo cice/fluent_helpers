@@ -5,20 +5,8 @@ module FluentHelpers
       def to_s
         id = @name.present? ? 'ibox-' + @name.parameterize : nil
         @_.div @options.merge(class: css_class, id: id) do
-          if @name
-            @_.div! class: 'ibox-title' do
-              @_.h5! @name
-
-              if @collapseable
-                @_.div! class: 'ibox-tools' do
-                  @_.a! class: 'collapse-link' do
-                    @_.i! nil, class: _get_collapse_icn
-                  end
-                end
-              end
-            end
-          end
-          @_.div! class: 'ibox-content', style: _get_content_style, &@block
+          build_title
+          build_content
         end
       end
 
@@ -47,6 +35,35 @@ module FluentHelpers
           @_.render!(*args)
         end
         self
+      end
+
+      protected
+      def build_content
+        @_.div! class: 'ibox-content', style: _get_content_style, &@block
+      end
+
+      def build_title
+        if @name
+          @_.div! class: 'ibox-title' do
+            @_.h5! @name
+
+            build_tools
+          end
+        end
+      end
+
+      def build_tools
+        if @collapseable
+          @_.div! class: 'ibox-tools' do
+            build_collapseable
+          end
+        end
+      end
+
+      def build_collapseable
+        @_.a! class: 'collapse-link' do
+          @_.i! nil, class: _get_collapse_icn
+        end
       end
 
       private
