@@ -5,8 +5,6 @@ require 'fluent_helpers/themes/inspinia/panel'
 module FluentHelpers
   module Themes
     module Inspinia
-      extend ActiveSupport::Concern
-
       def ibox &block
         respecting_using Ibox.new(self, block)
       end
@@ -16,7 +14,7 @@ module FluentHelpers
       end
 
       protected
-      def btn_class
+      def link_class
         FluentHelpers::Themes::Inspinia::Btn
       end
     end

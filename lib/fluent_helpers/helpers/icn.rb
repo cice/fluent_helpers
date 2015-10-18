@@ -11,7 +11,11 @@ module FluentHelpers
       end
 
       def for action
-        type mapping[action.to_sym]
+        type map action
+      end
+
+      def map action
+        mapping[action.to_sym]
       end
 
       def mapping
