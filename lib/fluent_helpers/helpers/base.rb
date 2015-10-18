@@ -11,6 +11,11 @@ module FluentHelpers
         on_block block
       end
 
+      def id id, &block
+        @id = id
+        on_block block
+      end
+
       def classes *classes, &block
         @classes += classes
         on_block block

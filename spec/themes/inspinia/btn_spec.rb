@@ -15,11 +15,11 @@ describe FluentHelpers::Themes::Inspinia::Btn do
     styles = %w[white outline block dim circle rounded]
 
     styles.each do |style|
-      expect(btn.__send__(style).to_s).to have_tag('a', with: { class: "btn-#{style}" })
+      expect(btn.__send__(style).to_s).to have_tag("a.btn-#{style}")
     end
   end
 
   it 'should mix with bootstrap styles' do
-    expect(btn.rounded.primary).to have_tag('a', with: { class: "btn-rounded btn-primary" })
+    expect(btn.rounded.primary).to have_tag("a.btn-rounded.btn-primary")
   end
 end

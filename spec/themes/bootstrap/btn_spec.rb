@@ -15,7 +15,7 @@ describe FluentHelpers::Themes::Bootstrap::Btn do
     styles = %w[default primary success info warning danger link]
 
     styles.each do |style|
-      expect(btn.__send__(style).to_s).to have_tag('a', with: { class: "btn-#{style}" })
+      expect(btn.__send__(style).to_s).to have_tag("a.btn-#{style}")
     end
   end
 
@@ -23,7 +23,7 @@ describe FluentHelpers::Themes::Bootstrap::Btn do
     sizes = %w[lg sm xs]
 
     sizes.each do |size|
-      expect(btn.__send__(size).to_s).to have_tag('a', with: { class: "btn-#{size}" })
+      expect(btn.__send__(size).to_s).to have_tag("a.btn-#{size}")
     end
   end
 
@@ -31,7 +31,47 @@ describe FluentHelpers::Themes::Bootstrap::Btn do
     states = %w[active disabled]
 
     states.each do |state|
-      expect(btn.__send__(state).to_s).to have_tag('a', with: { class: state })
+      expect(btn.__send__(state).to_s).to have_tag("a.#{state}")
+    end
+  end
+
+  describe 'Setting options' do
+    example 'disabled' do
+      html = btn.disabled
+
+      expect(html.to_s).to have_tag('a.disabled')
+    end
+
+    example 'active' do
+      html = btn.active
+
+      expect(html.to_s).to have_tag('a.active')
+    end
+
+    describe 'Conditional options' do
+      example 'disabled_if true' do
+        html = btn.disabled_if true
+
+        expect(html.to_s).to have_tag('a.disabled')
+      end
+
+      example 'disabled_if false' do
+        html = btn.disabled_if false
+
+        expect(html.to_s).not_to have_tag('a.disabled')
+      end
+
+      example 'active_if true' do
+        html = btn.active_if true
+
+        expect(html.to_s).to have_tag('a.active')
+      end
+
+      example 'active_if false' do
+        html = btn.active_if false
+
+        expect(html.to_s).not_to have_tag('a.active')
+      end
     end
   end
 end

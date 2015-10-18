@@ -10,14 +10,6 @@ module FluentHelpers
         end
       end
 
-      def _get_collapse_icn
-        @collapsed ? 'fa fa-chevron-down' : 'fa fa-chevron-up'
-      end
-
-      def _get_content_style
-        @collapsed ? 'display: none;' : ''
-      end
-
       def named name, &block
         @name = name
         on_block block if block
@@ -38,6 +30,14 @@ module FluentHelpers
       end
 
       protected
+      def _get_collapse_icn
+        @template.icn.for @collapsed ? :chevron_down : :chevron_up
+      end
+
+      def _get_content_style
+        @collapsed ? 'display: none;' : ''
+      end
+
       def build_content
         @_.div! class: 'ibox-content', style: _get_content_style, &@block
       end
@@ -62,7 +62,7 @@ module FluentHelpers
 
       def build_collapseable
         @_.a! class: 'collapse-link' do
-          @_.i! nil, class: _get_collapse_icn
+          @_.concat _get_collapse_icn
         end
       end
 

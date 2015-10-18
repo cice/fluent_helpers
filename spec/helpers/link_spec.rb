@@ -1,13 +1,15 @@
 require 'spec_helper'
 
 describe FluentHelpers::Helpers::Link do
-  let(:template) { TemplateStub.new }
+  let(:template) { TemplateStub.new.tap { |t|
+    t.extend FluentHelpers::Helpers
+  } }
   let(:link) { described_class.new template }
 
   example 'Creating a simple link' do
     html = link.to('http://example.org').named 'Click Here'
 
-    expect(html.to_s).to eq %[<a href="http://example.org">Click Here</a>]
+    expect(html.to_s).to have_tag('a', with: { href: 'http://example.org' }, text: 'Click Here')
   end
 
   example 'Using a block for the content' do
@@ -15,58 +17,26 @@ describe FluentHelpers::Helpers::Link do
       template.concat "Click Here"
     end
 
-    expect(html.to_s).to eq %[<a href="http://example.org">Click Here</a>]
+    expect(html.to_s).to have_tag('a', with: { href: 'http://example.org' }, text: 'Click Here')
   end
 
   example 'Setting a title' do
     html = link.to('http://example.org').title('Or Not').named 'Click Here'
 
-    expect(html.to_s).to eq %[<a title="Or Not" href="http://example.org">Click Here</a>]
+    expect(html.to_s).to have_tag('a', with: { href: 'http://example.org', title: 'Or Not' }, text: 'Click Here')
   end
 
   example 'Adding classes, converting underscores to dashes' do
     html = link.to('http://example.org').classes(:foo, :bar_baz).classes(:lorem).named 'Click Here'
 
-    expect(html.to_s).to eq %[<a class="foo bar-baz lorem" href="http://example.org">Click Here</a>]
+    expect(html.to_s).to have_tag('a.foo.bar-baz.lorem', with: { href: 'http://example.org' }, text: 'Click Here')
   end
 
-  describe 'Setting options' do
-    example 'disabled' do
-      html = link.to('http://example.org').disabled.named 'Click Here'
+  example 'Icon-only link' do
+    html = link.iconed(:show_me).to_s
 
-      expect(html.to_s).to eq %[<a disabled="disabled" href="http://example.org">Click Here</a>]
-    end
-
-    example 'active' do
-      html = link.to('http://example.org').active.named 'Click Here'
-
-      expect(html.to_s).to eq %[<a active="true" href="http://example.org">Click Here</a>]
-    end
-
-    describe 'Conditional options' do
-      example 'disabled_if true' do
-        html = link.to('http://example.org').disabled_if(true).named 'Click Here'
-
-        expect(html.to_s).to eq %[<a disabled="disabled" href="http://example.org">Click Here</a>]
-      end
-
-      example 'disabled_if false' do
-        html = link.to('http://example.org').disabled_if(false).named 'Click Here'
-
-        expect(html.to_s).to eq %[<a href="http://example.org">Click Here</a>]
-      end
-
-      example 'active_if true' do
-        html = link.to('http://example.org').active_if(true).named 'Click Here'
-
-        expect(html.to_s).to eq %[<a active="true" href="http://example.org">Click Here</a>]
-      end
-
-      example 'active_if false' do
-        html = link.to('http://example.org').active_if(false).named 'Click Here'
-
-        expect(html.to_s).to eq %[<a href="http://example.org">Click Here</a>]
-      end
+    expect(html).to have_tag('a', with: { title: '..show_me.' }) do
+      with_tag 'span.show-me'
     end
   end
 end

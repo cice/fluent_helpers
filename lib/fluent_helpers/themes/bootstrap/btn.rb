@@ -17,6 +17,21 @@ module FluentHelpers
         %w[active disabled].each do |name|
           class_alias name
         end
+
+        def as_btn &block
+          @classes << 'btn'
+          on_block block
+        end
+
+        def active_if cond, &block
+          active if cond
+          on_block block
+        end
+
+        def disabled_if cond, &block
+          disabled if cond
+          on_block block
+        end
       end
     end
   end

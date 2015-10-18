@@ -22,10 +22,6 @@ module FluentHelpers
         @callback = callback || -> {}
       end
 
-      def __prev__
-        @prev
-      end
-
       def __apply__ helper
         @prev.__apply__ helper if @prev
 
