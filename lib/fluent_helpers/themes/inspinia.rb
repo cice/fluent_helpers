@@ -8,11 +8,11 @@ module FluentHelpers
       end
 
       def ibox &block
-        with_using Ibox.new(self, block)
+        respecting_using Ibox.new(self, block)
       end
 
       def panel &block
-        with_using Panel.new(self, block)
+        respecting_using Panel.new(self, block)
       end
     end
   end

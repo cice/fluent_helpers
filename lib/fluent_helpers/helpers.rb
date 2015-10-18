@@ -14,15 +14,15 @@ module FluentHelpers
     include Using::Mixin
 
     def btn
-      with_using Link.new(self).as_btn
+      respecting_using Link.new(self).as_btn
     end
 
     def link
-      with_using Link.new(self)
+      respecting_using Link.new(self)
     end
 
     def res *resource
-      with_using Res.new(self, resource)
+      respecting_using Res.new(self, resource)
     end
 
     def icn type = nil
@@ -31,7 +31,7 @@ module FluentHelpers
     end
 
     def table collection, &block
-      with_using Table.new(self, collection, block)
+      respecting_using Table.new(self, collection, block)
     end
   end
 end

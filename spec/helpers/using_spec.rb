@@ -5,7 +5,7 @@ describe FluentHelpers::Helpers::Using do
 
   example 'Simple record and replay' do
     helper = double :helper
-    with_using = template.method :with_using
+    with_using = template.method :respecting_using
     allow(template).to receive(:some_helper) { with_using.call helper }
 
     expect(helper).to receive :whatever_method
@@ -18,7 +18,7 @@ describe FluentHelpers::Helpers::Using do
 
   example 'Nested record and replay' do
     helper = double :helper
-    allow(template).to receive(:some_helper) { template.send :with_using, helper }
+    allow(template).to receive(:some_helper) { template.send :respecting_using, helper }
 
     expect(helper).to receive :whatever_method
     expect(helper).to receive :you_like
@@ -33,8 +33,8 @@ describe FluentHelpers::Helpers::Using do
   example 'Restore the using stack after block ends' do
     helper_a = double :helper
     helper_b = double :helper
-    allow(template).to receive(:some_helper) { template.send :with_using, helper_a }
-    allow(template).to receive(:some_other_helper) { template.send :with_using, helper_b }
+    allow(template).to receive(:some_helper) { template.send :respecting_using, helper_a }
+    allow(template).to receive(:some_other_helper) { template.send :respecting_using, helper_b }
 
     expect(helper_a).to receive :whatever_method
     expect(helper_a).to receive :you_like

@@ -10,7 +10,7 @@ module FluentHelpers
         end
 
         protected
-        def with_using helper
+        def respecting_using helper
           @using.__apply__ helper if @using
           helper
         end
