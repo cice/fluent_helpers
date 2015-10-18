@@ -1,9 +1,7 @@
 module FluentHelpers
   module Themes
     module Fontawesome
-      module Icn
-
-        protected
+      class Icn < ::FluentHelpers::Helpers::Icn
         def css_class
           "fa fa-#{super}"
         end

@@ -1,12 +1,18 @@
+require 'fluent_helpers/themes/bootstrap/btn'
+require 'fluent_helpers/themes/bootstrap/table'
+
 module FluentHelpers
   module Themes
     module Bootstrap
       extend ActiveSupport::Concern
 
-      included do
-        FluentHelpers::Helpers::Link.send :include, Btn
+      protected
+      def table_class
+        Table
+      end
 
-        FluentHelpers::Helpers::Table.send :include, Table
+      def link_class
+        Btn
       end
     end
   end

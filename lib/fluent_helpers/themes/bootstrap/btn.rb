@@ -1,9 +1,8 @@
 module FluentHelpers
   module Themes
-    module Bootstrap::Btn
-      extend ActiveSupport::Concern
+    module Bootstrap
+      class Btn < ::FluentHelpers::Helpers::Link
 
-      included do
         # Styles
         %w[default primary success info warning danger link].each do |name|
           class_alias name, "btn-#{name}"

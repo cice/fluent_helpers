@@ -1,14 +1,13 @@
 require 'fluent_helpers/helpers'
+require 'fluent_helpers/themes/fontawesome/icn'
 
 module FluentHelpers
   module Themes
     module Fontawesome
       extend ActiveSupport::Concern
 
-      autoload :Icn, 'fluent_helpers/themes/fontawesome/icn'
-
-      included do
-        ::FluentHelpers::Helpers::Icn.send :include, Icn
+      def icn_class
+        ::FluentHelpers::Themes::Fontawesome::Icn
       end
     end
   end

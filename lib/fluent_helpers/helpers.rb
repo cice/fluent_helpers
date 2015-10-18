@@ -14,24 +14,41 @@ module FluentHelpers
     include Using::Mixin
 
     def btn
-      respecting_using Link.new(self).as_btn
+      respecting_using link_class.new(self).as_btn
     end
 
     def link
-      respecting_using Link.new(self)
+      respecting_using link_class.new(self)
     end
 
     def res *resource
-      respecting_using Res.new(self, resource)
+      respecting_using res_class.new(self, resource)
     end
 
     def icn type = nil
-      @icn ||= Icn.new self
+      @icn ||= icn_class.new self
       @icn.type type
     end
 
     def table collection, &block
-      respecting_using Table.new(self, collection, block)
+      respecting_using table_class.new(self, collection, block)
+    end
+
+    protected
+    def table_class
+      Table
+    end
+
+    def icn_class
+      Icn
+    end
+
+    def link_class
+      Link
+    end
+
+    def res_class
+      Res
     end
   end
 end
