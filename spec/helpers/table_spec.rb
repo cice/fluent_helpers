@@ -14,7 +14,7 @@ describe FluentHelpers::Helpers::Table do
       t[:country]
     }
 
-    expect(html.to_s).to have_tag('table', with: { class: 'table' }) do
+    expect(html.to_s).to have_tag('table') do
       with_tag 'thead tr th.name', text: '.name.'
       with_tag 'thead tr th.country', text: '.country.'
 
@@ -33,7 +33,7 @@ describe FluentHelpers::Helpers::Table do
       t[:name, :upcase]
     }
 
-    expect(html.to_s).to have_tag('table', with: { class: 'table' }) do
+    expect(html.to_s).to have_tag('table') do
       with_tag 'thead tr th.name-upcase', text: '.name.upcase.'
 
       with_tag 'tbody tr td.name-upcase', text: 'ALICE'

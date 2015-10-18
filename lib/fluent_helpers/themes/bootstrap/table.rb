@@ -19,6 +19,10 @@ module FluentHelpers
       def light &block
         condensed.striped.pointer.hover &block
       end
+
+      def default_classes
+        ['table']
+      end
     end
   end
 end

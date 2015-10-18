@@ -23,7 +23,7 @@ module FluentHelpers
       end
 
       def default_classes
-        ['table']
+        []
       end
 
       def row_data_id_name
