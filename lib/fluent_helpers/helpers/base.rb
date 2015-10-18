@@ -3,7 +3,6 @@ module FluentHelpers
     class Base < ActiveSupport::ProxyObject
       def initialize template, block = nil
         @options = {}
-        @block = nil
         @template = template
         @classes = default_classes
 
