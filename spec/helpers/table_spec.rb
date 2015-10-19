@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'fluent_helpers/themes/inspinia'
+require 'fluent_helpers/themes/bootstrap'
 
 describe FluentHelpers::Helpers::Table do
   let(:person) { Struct.new :name, :birthday, :country }
@@ -27,6 +28,28 @@ describe FluentHelpers::Helpers::Table do
       with_tag 'tbody tr td.country', text: 'US'
       with_tag 'tbody tr td.country', text: 'UK'
     end
+  end
+
+  example 'bootstrap table with default style' do
+    people = [alice]
+
+    table = FluentHelpers::Themes::Bootstrap::Table.new template, people, -> (t) {
+      t[:name]
+    }
+
+    table.default
+    expect(table.to_s).to have_tag('table', with: { class: ["table", "table-condensed", "table-bordered", "table-hover", "table-pointer"]})
+  end
+
+  example 'bootstrap table with light style' do
+    people = [alice]
+
+    table = FluentHelpers::Themes::Bootstrap::Table.new template, people, -> (t) {
+      t[:name]
+    }
+
+    table.light
+    expect(table.to_s).to have_tag('table', with: { class: ["table", "table-condensed", "table-striped", "table-hover", "table-pointer"]})
   end
 
   example 'Chaining properties on fields/columns' do
