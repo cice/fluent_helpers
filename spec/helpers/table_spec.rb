@@ -1,10 +1,13 @@
 require 'spec_helper'
+require 'fluent_helpers/themes/inspinia'
 
 describe FluentHelpers::Helpers::Table do
   let(:person) { Struct.new :name, :birthday, :country }
   let(:alice) { person.new 'Alice', DateTime.new(1980, 1, 1), 'US' }
   let(:bob) { person.new 'Bob', DateTime.new(1981, 1, 1), 'UK' }
-  let(:template) { TemplateStub.new }
+  let(:template) { TemplateStub.new.tap { |t|
+    t.extend FluentHelpers::Themes::Inspinia
+  } }
 
   example 'A simple table with 2 columns' do
     people = [alice, bob]
@@ -86,16 +89,118 @@ describe FluentHelpers::Helpers::Table do
   end
 
   describe 'Columns' do
-    example 'link_to'
-    example 'link_to icon_only'
-    example 'link_to via'
+    before do
+      allow(alice).to receive(:url).and_return 'http://google.de'
+    end
 
-    example 'named'
-    example 'unnamed'
+    example 'link_to' do
+      people = [alice]
 
-    example 'localized'
+      table = described_class.new template, people, -> (t) {
+        t[:name].link_to :url
+      }
 
-    example 'as_samp'
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'td a', with: { href: 'http://google.de' } do
+          with_text ' Alice'
+        end
+        with_tag 'td a span'
+      end
+    end
+
+    example 'link_to icon_only' do
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].link_to(:url).icon_only
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'td a', with: { href: 'http://google.de' } do
+          with_text ''
+        end
+        with_tag 'td a span'
+      end
+    end
+
+    example 'link_to via' do
+      mock_root = double(:mock_root)
+      allow(mock_root).to receive(:url_for).and_return '/awesomepath/'
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].link_to(:url).via mock_root
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'td a', with: { href: '/awesomepath/' }
+      end
+      expect(mock_root).to have_received(:url_for)
+    end
+
+    example 'named' do
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].named(:whoop)
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'thead tr th' do
+          with_text 'whoop'
+        end
+        with_tag 'tbody tr td' do
+          with_text 'Alice'
+        end
+      end
+    end
+
+    example 'unnamed' do
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].unnamed
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'thead tr th' do
+          with_text ''
+        end
+        with_tag 'tbody tr td' do
+          with_text 'Alice'
+        end
+      end
+    end
+
+    example 'localized' do
+      allow(template).to receive(:localize).and_return('Alice.long')
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].localized(:long)
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'tbody tr td' do
+          with_text 'Alice.long'
+        end
+      end
+      expect(template).to have_received(:localize).with('Alice', { format: :long })
+    end
+
+    example 'as_samp' do
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].as_samp
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'tbody tr td samp' do
+          with_text 'Alice'
+        end
+      end
+    end
   end
 
   describe 'Actions' do

@@ -38,6 +38,10 @@ module FluentHelpers
       def render name
         @partials[name.to_sym] || raise(ActionView::MissingTemplate)
       end
+
+      def localize val, format: :short
+        "#{val}.#{format}"
+      end
     end
   end
 end
