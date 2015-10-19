@@ -22,7 +22,6 @@ module FluentHelpers
       def localized format = :short
         @block = ::Proc.new do |obj|
           val = _get_value obj
-          byebug
           if val.present?
             @_.concat @_.localize(val, format: format)
           end
