@@ -35,6 +35,10 @@ describe FluentHelpers::Themes::Bootstrap::Btn do
     end
   end
 
+  example 'With btn class' do
+    expect(btn.as_btn).to have_tag 'a.btn'
+  end
+
   describe 'Setting options' do
     example 'disabled' do
       html = btn.disabled
