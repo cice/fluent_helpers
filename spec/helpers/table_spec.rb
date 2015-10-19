@@ -6,7 +6,7 @@ describe FluentHelpers::Helpers::Table do
   let(:alice) { person.new 'Alice', DateTime.new(1980, 1, 1), 'US' }
   let(:bob) { person.new 'Bob', DateTime.new(1981, 1, 1), 'UK' }
   let(:template) { TemplateStub.new.tap { |t|
-    t.extend FluentHelpers::Themes::Inspinia
+    t.extend FluentHelpers::Helpers
   } }
 
   example 'A simple table with 2 columns' do
