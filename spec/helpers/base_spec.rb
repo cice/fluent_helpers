@@ -3,40 +3,41 @@ require 'fluent_helpers/themes/inspinia'
 require 'fluent_helpers/themes/bootstrap'
 
 describe FluentHelpers::Helpers::Base do
-  let(:person) { Struct.new :name, :birthday, :country }
-  let(:template) { TemplateStub.new.tap { |t|
-    t.extend FluentHelpers::Helpers
-  } }
+  let(:template) { TemplateStub.new }
 
-  before do
-    allow(template).to receive(:url_for).and_return('/awesome/')
-  end
-
-  example 'link with classes' do
-    html = FluentHelpers::Helpers::Link.new template, ->(b) { }
-    html.classes 'css-class'
-    expect(html.to_s).to have_tag('a.css-class')
+  example 'element with classes' do
+    html = described_class.new template
+    expect {
+      html.classes('css-class')
+    }.to change {
+      html.instance_eval("@classes")
+    }.from([]).to(["css-class"])
   end
 
   example 'link with id' do
-    html = FluentHelpers::Helpers::Link.new template, ->(b) { }
-    html.classes 'awesomeId'
-    expect(html.to_s).to have_tag('a.awesomeId')
+    html = described_class.new template
+    expect {
+      html.id 'awesomeId'
+    }.to change {
+      html.instance_eval("@id")
+    }.from(nil).to('awesomeId')
   end
 
   example 'link with data' do
-    html = FluentHelpers::Helpers::Link.new template, ->(b) { }
-    html.data({ whoop: 'awesomeData' })
-    expect(html.to_s).to have_tag('a', with: { 'data-whoop': 'awesomeData' })
+    html = described_class.new template
+    expect {
+      html.data({ whoop: 'awesomeData' })
+    }.to change {
+      html.instance_eval("@options")
+    }.from({}).to({ 'data-whoop' => 'awesomeData'})
   end
 
   example 'link with inline style' do
-    html = FluentHelpers::Helpers::Link.new template, ->(b) { }
-    html.style({ color: '#000' })
-    expect(html.to_s).to have_tag('a')
-    expect(html.to_s).to match /style="color: #000;"/
+    html = described_class.new template
+    expect {
+      html.style({ color: '#000' })
+    }.to change {
+      html.instance_eval("@options")
+    }.from({}).to({ style: 'color: #000;' })
   end
-
-
-
 end
