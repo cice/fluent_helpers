@@ -43,6 +43,20 @@ describe FluentHelpers::Helpers::Table do
     end
   end
 
+  example 'parents' do
+    admin_parent = double(:admin_parent)
+    allow(template).to receive(:url_for)
+
+    people = [alice]
+    table = described_class.new template, people, -> (t) {
+      t.action(:show)
+    }
+
+    table.belongs_to(admin_parent)
+    expect(table.to_s).to have_tag('table')
+    expect(template).to have_received(:url_for).with([admin_parent, alice])
+  end
+
   example 'Scoping / naming' do
     people = [alice]
 
@@ -197,6 +211,20 @@ describe FluentHelpers::Helpers::Table do
 
       expect(table.to_s).to have_tag('table') do
         with_tag 'tbody tr td samp' do
+          with_text 'Alice'
+        end
+      end
+    end
+
+    example 'align_right' do
+      people = [alice]
+
+      table = described_class.new template, people, -> (t) {
+        t[:name].align_right
+      }
+
+      expect(table.to_s).to have_tag('table') do
+        with_tag 'tbody tr td.text-right' do
           with_text 'Alice'
         end
       end
