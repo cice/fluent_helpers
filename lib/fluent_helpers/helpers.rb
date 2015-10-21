@@ -12,6 +12,7 @@ module FluentHelpers
     autoload :Icn,                'fluent_helpers/helpers/icn'
 
     include Using::Mixin
+    include ActiveSupport::Configurable
 
     def btn
       respecting_using link_class.new(self).as_btn

@@ -15,13 +15,11 @@ module FluentHelpers
       end
 
       def map action
-        mapping[action.to_sym]
+        mapping[action.to_s] || mapping[action.to_sym]
       end
 
       def mapping
-        @mapping ||= ::Hash.new do |h, k|
-          h[k.to_sym] = k.to_sym
-        end
+        @mapping ||= ::FluentHelpers::Helpers.config.base['icon_mappings']
       end
 
       protected
