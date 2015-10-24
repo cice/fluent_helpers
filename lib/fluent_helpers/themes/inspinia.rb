@@ -1,6 +1,7 @@
 require 'fluent_helpers/themes/inspinia/btn'
 require 'fluent_helpers/themes/inspinia/ibox'
 require 'fluent_helpers/themes/inspinia/panel'
+require 'fluent_helpers/themes/inspinia/accordeon'
 
 require 'fluent_helpers/helpers'
 require 'fluent_helpers/themes/fontawesome'
@@ -17,6 +18,10 @@ module FluentHelpers
 
       def panel &block
         respecting_using Panel.new(self, block)
+      end
+
+      def accordeon &block
+        respecting_using Accordeon.new self, block
       end
 
       protected

@@ -83,6 +83,11 @@ module FluentHelpers
         on_block block
       end
 
+      def align_center &block
+        classes 'text-center'
+        on_block block
+      end
+
       def via route_base, &block
         @route_base = route_base
         on_block block
