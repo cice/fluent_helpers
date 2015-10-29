@@ -11,6 +11,7 @@ module FluentHelpers
     module Inspinia
       include FluentHelpers::Helpers
       include FluentHelpers::Themes::Fontawesome
+      include FluentHelpers::Themes::Bootstrap
 
       def ibox &block
         respecting_using Ibox.new(self, block)
