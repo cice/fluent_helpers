@@ -15,6 +15,8 @@ require 'fluent_helpers/testing'
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f }
 
+FluentHelpers::Helpers.config.base = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), "fixtures/icons.yml")))
+
 RSpec.configure do |config|
   config.include RSpecHtmlMatchers
   config.include FluentHelpers::Testing

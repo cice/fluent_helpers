@@ -25,6 +25,10 @@ module FluentHelpers
         column
       end
 
+      def translated attribute, dl
+        col(attribute).translated attribute, dl
+      end
+
       def action action = nil, &block
         action = Table::Action.new(@template, action || block, @options, @parents)
         @actions << action
