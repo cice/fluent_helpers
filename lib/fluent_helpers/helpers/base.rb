@@ -48,6 +48,17 @@ module FluentHelpers
       end
 
       protected
+      def _proc_or_accessor(obj, method)
+        case method
+        when ::Proc
+          method.call obj
+        when ::Symbol, ::String
+          obj.send method
+        else
+          raise ::ArgumentError.new("Expected a Proc, Symbol or String, got: #{method.class}")
+        end
+      end
+
       def css_class
         @classes.compact.map { |c| c.to_s.gsub("_", "-") }.uniq
       end
