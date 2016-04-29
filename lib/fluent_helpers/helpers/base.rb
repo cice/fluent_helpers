@@ -83,9 +83,8 @@ module FluentHelpers
           klass ||= name
           class_eval <<-RUBY
             def #{name} &block
-              on_block block
               @classes << '#{klass.to_s}'
-              self
+              on_block block
             end
           RUBY
         end

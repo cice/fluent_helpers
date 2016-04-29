@@ -8,9 +8,14 @@ module FluentHelpers
 
       autoload :DropdownSwitch,     'fluent_helpers/themes/bootstrap/dropdown_switch'
       autoload :TextSearch,         'fluent_helpers/themes/bootstrap/text_search'
+      autoload :Badge,              'fluent_helpers/themes/bootstrap/badge'
 
       def dropdown_switch
         respecting_using DropdownSwitch.new(self)
+      end
+
+      def badge
+        Badge.new(self)
       end
 
       def switch
