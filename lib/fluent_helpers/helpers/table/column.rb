@@ -19,13 +19,6 @@ module FluentHelpers
         on_block block
       end
 
-      def translated(attribute, dl)
-        @block = ::Proc.new do |obj|
-          @_.concat obj.translator.get(attribute, dl.id)
-        end
-        named dl.name
-      end
-
       def localized(format = :short)
         @block = ::Proc.new do |obj|
           val = _get_value obj
