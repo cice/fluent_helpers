@@ -30,8 +30,8 @@ module FluentHelpers
           on_block block
         end
 
-        def with_default(default, &block)
-          @default = default
+        def with_default(default = nil, &block)
+          @default = default || @collection.first
           on_block block
         end
 
