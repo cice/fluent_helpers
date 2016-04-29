@@ -15,7 +15,17 @@ module FluentHelpers
       end
 
       def map(action)
-        mapping[action.to_s] || mapping[action.to_sym]
+        icn = mapping[action.to_s] || mapping[action.to_sym]
+        case icn
+        when ::Hash
+          @flip = icn['flip']
+
+          icn['icon']
+        when ::String, ::Symbol
+          icn
+        when nil
+          action
+        end
       end
 
       def mapping
@@ -24,7 +34,7 @@ module FluentHelpers
 
       protected
       def css_class
-        @type.to_s.gsub "_", "-"
+        super + [@type.to_s.gsub('_', '-')]
       end
     end
   end

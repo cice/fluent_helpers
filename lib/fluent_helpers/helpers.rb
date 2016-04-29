@@ -32,8 +32,7 @@ module FluentHelpers
     end
 
     def icn(type = nil)
-      @icn ||= icn_class.new self
-      @icn.type type
+      icn_class.new(self).type(type)
     end
 
     def table(collection, &block)

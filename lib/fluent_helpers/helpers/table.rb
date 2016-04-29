@@ -10,6 +10,11 @@ module FluentHelpers
         super template, block
       end
 
+      def route_prefix(prefix, &block)
+        @options[:route_prefix] = prefix
+        on_block block
+      end
+
       def belongs_to(*parents, &block)
         @parents = parents
         on_block block

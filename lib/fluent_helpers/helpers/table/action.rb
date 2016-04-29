@@ -25,6 +25,7 @@ module FluentHelpers
             return unless only_if
           end
           obj = @parents ? [*@parents, obj] : [obj]
+          obj.unshift @options[:route_prefix] if @options[:route_prefix]
           @template.res(*obj).__send__ @action
         end
       end
