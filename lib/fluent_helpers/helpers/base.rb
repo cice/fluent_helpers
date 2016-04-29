@@ -1,7 +1,7 @@
 module FluentHelpers
   module Helpers
     class Base < ActiveSupport::ProxyObject
-      def initialize template, block = nil
+      def initialize(template, block = nil)
         @options = {}
         @block = nil
         @template = template
@@ -12,18 +12,18 @@ module FluentHelpers
         on_block block
       end
 
-      def id id, &block
+      def id(id, &block)
         @id = id
         on_block block
       end
 
-      def classes *classes, &block
+      def classes(*classes, &block)
         @classes += classes
         on_block block
         self
       end
 
-      def data kv, &block
+      def data(kv, &block)
         on_block block
         kv.each do |k, v|
           k = 'data-' + k.to_s.gsub('_', '-')
@@ -32,7 +32,7 @@ module FluentHelpers
         self
       end
 
-      def style styles, &block
+      def style(styles, &block)
         @options[:style] = styles.sum("") do |(k, v)|
           "#{k}: #{v};"
         end
@@ -56,19 +56,19 @@ module FluentHelpers
         []
       end
 
-      def method_missing name, *args, &block
+      def method_missing(name, *args, &block)
         @options[name.to_sym] = args.any? ? args.first : true
         on_block block
         self
       end
 
-      def on_block block
+      def on_block(block)
         @block = block if block
         self
       end
 
       class << self
-        def class_alias name, klass = nil
+        def class_alias(name, klass = nil)
           klass ||= name
           class_eval <<-RUBY
             def #{name} &block

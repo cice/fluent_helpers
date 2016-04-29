@@ -10,19 +10,19 @@ module FluentHelpers
         end
 
         protected
-        def respecting_using helper
+        def respecting_using(helper)
           @using.__apply__ helper if @using
           helper
         end
       end
 
-      def initialize prev = nil, &callback
+      def initialize(prev = nil, &callback)
         @calls = []
         @prev = prev
         @callback = callback || -> {}
       end
 
-      def __apply__ helper
+      def __apply__(helper)
         @prev.__apply__ helper if @prev
 
         @calls.each do |call_args|
@@ -31,7 +31,7 @@ module FluentHelpers
       end
 
       protected
-      def method_missing name, *args, &block
+      def method_missing(name, *args, &block)
         @calls << [name, *args]
         if block
           block.call

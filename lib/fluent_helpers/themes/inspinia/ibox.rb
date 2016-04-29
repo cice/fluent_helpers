@@ -10,19 +10,19 @@ module FluentHelpers
         end
       end
 
-      def named name, &block
+      def named(name, &block)
         @name = name
         on_block block if block
         self
       end
 
-      def collapseable collapsed = false, &block
+      def collapseable(collapsed = false, &block)
         @collapseable = true
         @collapsed = collapsed
         on_block block
       end
 
-      def render *args
+      def render(*args)
         @block = ::Proc.new do
           @_.render!(*args)
         end

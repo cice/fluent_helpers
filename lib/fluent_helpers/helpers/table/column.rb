@@ -1,7 +1,7 @@
 module FluentHelpers
   module Helpers
     class Table::Column < ::FluentHelpers::Helpers::Base
-      def initialize template, keys, options, block
+      def initialize(template, keys, options, block)
         super template
         @keys = keys
         @options = options
@@ -10,23 +10,23 @@ module FluentHelpers
         classes @keys.join('_')
       end
 
-      def _get_value obj
+      def _get_value(obj)
         @keys.inject(obj) { |o, k| o.try k }
       end
 
-      def named name, &block
+      def named(name, &block)
         @name = name
         on_block block
       end
 
-      def translated attribute, dl
+      def translated(attribute, dl)
         @block = ::Proc.new do |obj|
           @_.concat obj.translator.get(attribute, dl.id)
         end
         named dl.name
       end
 
-      def localized format = :short
+      def localized(format = :short)
         @block = ::Proc.new do |obj|
           val = _get_value obj
           if val.present?
@@ -35,7 +35,7 @@ module FluentHelpers
         end
       end
 
-      def unnamed &block
+      def unnamed(&block)
         @name = ''
         on_block block
       end
@@ -51,7 +51,7 @@ module FluentHelpers
         @name || @_.translate(i18n_key)
       end
 
-      def get obj
+      def get(obj)
         if @link_to_keys.present?
           content = _get_value obj
           obj = @link_to_keys.inject(obj) { |o, k| o.send k }
@@ -75,7 +75,7 @@ module FluentHelpers
         end
       end
 
-      def link_to *keys
+      def link_to(*keys)
         @link_to_keys = keys
         self
       end
@@ -85,17 +85,17 @@ module FluentHelpers
         self
       end
 
-      def align_right &block
+      def align_right(&block)
         classes 'text-right'
         on_block block
       end
 
-      def align_center &block
+      def align_center(&block)
         classes 'text-center'
         on_block block
       end
 
-      def via route_base, &block
+      def via(route_base, &block)
         @route_base = route_base
         on_block block
       end

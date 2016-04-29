@@ -5,16 +5,16 @@ module FluentHelpers
         @_.span '', class: css_class
       end
 
-      def type type
+      def type(type)
         @type = type
         self
       end
 
-      def for action
+      def for(action)
         type map action
       end
 
-      def map action
+      def map(action)
         mapping[action.to_s] || mapping[action.to_sym]
       end
 

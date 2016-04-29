@@ -6,7 +6,7 @@ module FluentHelpers
     class Table::Builder
       attr_reader :columns, :actions
 
-      def initialize template, options, parents, &block
+      def initialize(template, options, parents, &block)
         @options = options
         @columns = []
         @actions = []
@@ -15,21 +15,21 @@ module FluentHelpers
         block.call self
       end
 
-      def [] *keys
+      def [](*keys)
         col *keys
       end
 
-      def col *keys, &block
+      def col(*keys, &block)
         column = Table::Column.new(@template, keys, @options.dup, block)
         @columns << column
         column
       end
 
-      def translated attribute, dl
+      def translated(attribute, dl)
         col(attribute).translated attribute, dl
       end
 
-      def action action = nil, &block
+      def action(action = nil, &block)
         action = Table::Action.new(@template, action || block, @options, @parents)
         @actions << action
         action

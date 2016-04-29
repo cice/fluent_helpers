@@ -1,7 +1,7 @@
 module FluentHelpers
   module Helpers
     class Generator < ActiveSupport::ProxyObject
-      def initialize template
+      def initialize(template)
         @template = template
       end
 
@@ -107,7 +107,7 @@ module FluentHelpers
       end
 
       protected
-      def method_missing method, *args, &block
+      def method_missing(method, *args, &block)
         name = method.to_s
         name_to_define, name_to_call = name.ends_with?('!') ? [name[0..-2], name] : [name, name]
         __def_proxy__ name_to_define
@@ -115,7 +115,7 @@ module FluentHelpers
       end
 
       private
-      def __def_proxy__ name
+      def __def_proxy__(name)
         ::FluentHelpers::Helpers::Generator.class_eval <<-RUBY
           def #{name} *args, &block
             @template.send :#{name}, *args, &block

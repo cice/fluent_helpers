@@ -26,7 +26,7 @@ module FluentHelpers
         end
       end
 
-      def named name, &block
+      def named(name, &block)
         @name = name
         on_block block if block
         self

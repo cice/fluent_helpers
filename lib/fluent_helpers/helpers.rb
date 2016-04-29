@@ -22,16 +22,16 @@ module FluentHelpers
       respecting_using link_class.new(self)
     end
 
-    def res *resource
+    def res(*resource)
       respecting_using res_class.new(self, resource)
     end
 
-    def icn type = nil
+    def icn(type = nil)
       @icn ||= icn_class.new self
       @icn.type type
     end
 
-    def table collection, &block
+    def table(collection, &block)
       respecting_using table_class.new(self, collection, block)
     end
 

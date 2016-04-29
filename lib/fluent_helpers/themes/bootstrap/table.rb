@@ -10,11 +10,11 @@ module FluentHelpers
         class_alias :pointer, "table-pointer"
         class_alias :striped, "table-striped"
 
-        def default &block
+        def default(&block)
           condensed.bordered.hover.pointer &block
         end
 
-        def light &block
+        def light(&block)
           condensed.striped.pointer.hover &block
         end
 

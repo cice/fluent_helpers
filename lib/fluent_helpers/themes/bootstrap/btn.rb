@@ -18,17 +18,17 @@ module FluentHelpers
           class_alias name
         end
 
-        def as_btn &block
+        def as_btn(&block)
           @classes << 'btn'
           on_block block
         end
 
-        def active_if cond, &block
+        def active_if(cond, &block)
           active if cond
           on_block block
         end
 
-        def disabled_if cond, &block
+        def disabled_if(cond, &block)
           disabled if cond
           on_block block
         end

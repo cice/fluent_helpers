@@ -1,16 +1,16 @@
 module FluentHelpers
   module Helpers
     class Res < Base
-      def initialize template, resource
+      def initialize(template, resource)
         super template
         @resource = resource
       end
 
-      def action type
+      def action(type)
         action_for @resource, type
       end
 
-      def action_for resource, type
+      def action_for(resource, type)
         @_.link.to(resource).title(@_.t type, scope: 'actions').named @_.icn.for type
       end
 

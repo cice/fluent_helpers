@@ -14,7 +14,7 @@ module FluentHelpers
         @partials = {}
       end
 
-      def concat obj
+      def concat(obj)
         @output_buffer += obj.to_s
       end
 
@@ -22,24 +22,24 @@ module FluentHelpers
         @output_buffer
       end
 
-      def translate *keys
+      def translate(*keys)
         '.' + keys.map(&:to_s).join('.') + '.'
       end
       alias_method :t, :translate
 
-      def add_partial name, content
+      def add_partial(name, content)
         @partials[name.to_sym] = content.html_safe
       end
 
-      def capture_partial name, &block
+      def capture_partial(name, &block)
         add_partial name, capture(&block)
       end
 
-      def render name
+      def render(name)
         @partials[name.to_sym] || raise(ActionView::MissingTemplate)
       end
 
-      def localize val, format: :short
+      def localize(val, format: :short)
         "#{val}.#{format}"
       end
     end

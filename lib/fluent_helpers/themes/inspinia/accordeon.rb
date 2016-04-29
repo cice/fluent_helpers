@@ -7,7 +7,7 @@ module FluentHelpers
         end
       end
 
-      def panel name, &block
+      def panel(name, &block)
         @panels ||= []
 
         @panels << PanelItem.new(name, block)
