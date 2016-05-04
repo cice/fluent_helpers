@@ -25,8 +25,9 @@ module FluentHelpers
           on_block block
         end
 
-        def with_blank(blank_label, &block)
+        def with_blank(blank_label, selectable = false, &block)
           @blank_label = blank_label
+          @blank_selectable = selectable
           on_block block
         end
 
@@ -56,10 +57,18 @@ module FluentHelpers
             end
 
             @_.ul! class: 'dropdown-menu', role: 'menu' do
+              if @blank_selectable
+                cls = 'active' if current.blank?
+                @_.li! class: cls do
+                  @_.link_to! @blank_label, @params.except(@param)
+                end
+                @_.li! '', class: 'divider', role: 'separator'
+              end
+
               @collection.each do |obj|
                 value = _proc_or_accessor(obj, @value_method)
                 label = _proc_or_accessor(obj, @label_method)
-                cls = 'active' if current == obj
+                cls = current == obj ? 'active' : nil
 
                 @_.li! class: cls do
                   @_.link_to! label, @params.merge(@param => value)
