@@ -34,7 +34,7 @@ module FluentHelpers
       def to_s
         tab = Builder.new @template, @options, @parents, &@block
 
-        @_.table @options.except(:as).merge(class: css_class) do
+        @_.table @options.except(:as, :route_prefix).merge(class: css_class) do
           build_thead tab
           build_tbody tab
         end
@@ -61,7 +61,9 @@ module FluentHelpers
 
       def build_tbody_check(tab, o)
         if tab.with_check?
-          @_.td! @_.check_box_tag(@decoration.check_name, o.id), class: @decoration.check_class
+          @_.td! @_.check_box_tag(tab._check_param, o.id), class: @decoration.check_class
+        elsif tab.with_radio?
+          @_.td! @_.radio_button_tag(tab._radio_param, o.id), class: @decoration.check_class
         end
       end
 
@@ -101,6 +103,8 @@ module FluentHelpers
       def build_thead_check(tab)
         if tab.with_check?
           @_.th! @_.check_box_tag(@decoration.check_all_name), class: @decoration.check_class
+        elsif tab.with_radio?
+          @_.th! '', class: @decoration.check_class
         end
       end
 

@@ -31,13 +31,30 @@ module FluentHelpers
         action
       end
 
-      def check
-        @with_check = true
+      def check(param = 'ids[]')
+        @with_check = param
         nil
+      end
+
+      def radio(param = 'id')
+        @with_radio = param
+        nil
+      end
+
+      def with_radio?
+        !!@with_radio
       end
 
       def with_check?
         !!@with_check
+      end
+
+      def _check_param
+        @with_check
+      end
+
+      def _radio_param
+        @with_radio
       end
     end
   end
