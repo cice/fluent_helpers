@@ -44,6 +44,10 @@ module FluentHelpers
         @name || @_.translate(i18n_key)
       end
 
+      def get_options
+        @options
+      end
+
       def get(obj)
         if @link_to_keys.present?
           content = _get_value obj

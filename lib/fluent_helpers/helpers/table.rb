@@ -96,7 +96,7 @@ module FluentHelpers
 
       def build_thead_columns(tab)
         tab.columns.each do |c|
-          @_.th! c.head, class: c.css_class
+          @_.th! c.head, c.get_options.merge(class: c.css_class)
         end
       end
 
