@@ -2,7 +2,7 @@ module FluentHelpers
   module Helpers
     class Icn < Base
       def to_s
-        @_.span '', class: css_class
+        @_.i '', class: css_class
       end
 
       def type(type)

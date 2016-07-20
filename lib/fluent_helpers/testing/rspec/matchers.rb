@@ -65,7 +65,7 @@ RSpec::Matchers.define :have_row_action do |url_args, icon|
   match do |page|
     url = url.is_a?(String) ? url_args : polymorphic_url(url_args, routing_type: :path)
     link = page.find(:xpath, ".//a[@href='#{url}']")
-    link.find "span.fa.fa-#{icon.to_s.gsub('_', '-')}"
+    link.find "i.fa.fa-#{icon.to_s.gsub('_', '-')}"
   end
 end
 
