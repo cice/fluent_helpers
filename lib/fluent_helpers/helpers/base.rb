@@ -47,6 +47,14 @@ module FluentHelpers
         to_s
       end
 
+      def to_ary
+        nil
+      end
+
+      def _hamlout
+        nil
+      end
+
       protected
       def _proc_or_accessor(obj, method)
         case method
