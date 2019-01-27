@@ -49,13 +49,13 @@ RSpec::Matchers.define :have_breadcrumbs do |current, crumbs|
       name = link.text
       href = link[:href]
 
-      h[name] = href
+      h[name] = URI(href).path
     end
     links[:current] = breadcrumb.find('li.active strong').text
 
     @actual = links
 
-    links == crumbs.stringify_keys.merge(current: current)
+    links == crumbs.stringify_keys.transform_values { |v| URI(v).path }.merge(current: current)
   end
 
   diffable
