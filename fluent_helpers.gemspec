@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "fluent_helpers"
   spec.version       = FluentHelpers::VERSION
   spec.authors       = ["Marian Theisen"]
-  spec.email         = ["marian.theisen@kayoom.com"]
+  spec.email         = ["marian@cice-online.net"]
   spec.summary       = %q{FluentHelpers are great}
   spec.description   = %q{No. Really great!}
   spec.homepage      = ""

@@ -1,5 +1,7 @@
 # FluentHelpers
 
+[![Build Status](https://travis-ci.org/cice/fluent_helpers.svg?branch=master)](https://travis-ci.org/cice/fluent_helpers)
+
 TODO: Write a gem description
 
 ## Installation
