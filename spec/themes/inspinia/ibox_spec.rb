@@ -16,7 +16,7 @@ describe FluentHelpers::Themes::Inspinia::Ibox do
 
     expect(html).to have_tag('div#ibox-foo.ibox.float-e-margins') do
       with_tag 'div.ibox-title h5', text: 'foo'
-      with_tag 'div.ibox-title div.ibox-tools a.collapse-link span.fa.fa-chevron-up'
+      with_tag 'div.ibox-title div.ibox-tools a.collapse-link i.fa.fa-chevron-up'
       with_tag 'div.ibox-content', text: 'bar'
     end
   end
@@ -28,7 +28,7 @@ describe FluentHelpers::Themes::Inspinia::Ibox do
 
     expect(html).to have_tag('div#ibox-foo.ibox.float-e-margins') do
       with_tag 'div.ibox-title h5', text: 'foo'
-      with_tag 'div.ibox-title div.ibox-tools a.collapse-link span.fa.fa-chevron-down'
+      with_tag 'div.ibox-title div.ibox-tools a.collapse-link i.fa.fa-chevron-down'
       with_tag 'div.ibox-content', text: 'bar', with: { style: 'display: none;' }
     end
   end

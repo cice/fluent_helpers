@@ -38,7 +38,7 @@ describe FluentHelpers::Helpers::Table do
     }
 
     table.default
-    expect(table.to_s).to have_tag('table', with: { class: ["table", "table-condensed", "table-bordered", "table-hover", "table-pointer"]})
+    expect(table.to_s).to have_tag('table', with: { class: ["table", "table-condensed", "table-bordered", "table-hover", "table-pointer"] })
   end
 
   example 'bootstrap table with light style' do
@@ -49,7 +49,7 @@ describe FluentHelpers::Helpers::Table do
     }
 
     table.light
-    expect(table.to_s).to have_tag('table', with: { class: ["table", "table-condensed", "table-striped", "table-hover", "table-pointer"]})
+    expect(table.to_s).to have_tag('table', with: { class: ["table", "table-condensed", "table-striped", "table-hover", "table-pointer"] })
   end
 
   example 'Chaining properties on fields/columns' do
@@ -89,9 +89,7 @@ describe FluentHelpers::Helpers::Table do
 
     table.as(:employees)
 
-    expect(table.to_s).to have_tag('table', with: { class: 'employees' }) do
-      with_tag 'thead tr th.name', text: '.employees.name.'
-    end
+    expect(table.to_s).to(have_tag('table', with: { class: 'employees' }) { with_tag 'thead tr th.name', text: '.employees.name.' })
   end
 
   example 'Setting data-id attributes on body rows' do
@@ -105,9 +103,7 @@ describe FluentHelpers::Helpers::Table do
 
     table.with_ids
 
-    expect(table.to_s).to have_tag('table') do
-      with_tag 'tbody tr', with: { 'data-id': 1 }
-    end
+    expect(table.to_s).to(have_tag('table') { with_tag 'tbody tr', with: { 'data-id' => 1 } })
   end
 
   example 'Adding a checkbox column' do
@@ -120,9 +116,7 @@ describe FluentHelpers::Helpers::Table do
       t[:name]
     }
 
-    expect(table.to_s).to have_tag('table') do
-      with_tag 'tbody tr td.check input', with: { type: 'checkbox', value: 1 }
-    end
+    expect(table.to_s).to(have_tag('table') { with_tag 'tbody tr td.check input', with: { type: 'checkbox', value: 1 } })
   end
 
   describe 'Columns' do
@@ -137,12 +131,10 @@ describe FluentHelpers::Helpers::Table do
         t[:name].link_to :url
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'td a', with: { href: 'http://google.de' } do
-          with_text ' Alice'
-        end
-        with_tag 'td a span'
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag 'td a i'
+        with_tag('td a', with: { href: 'http://google.de' })
+      })
     end
 
     example 'link_to icon_only' do
@@ -152,12 +144,10 @@ describe FluentHelpers::Helpers::Table do
         t[:name].link_to(:url).icon_only
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'td a', with: { href: 'http://google.de' } do
-          with_text ''
-        end
-        with_tag 'td a span'
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag('td a', with: { href: 'http://google.de' })
+        with_tag 'td a i.show'
+      })
     end
 
     example 'link_to via' do
@@ -169,9 +159,7 @@ describe FluentHelpers::Helpers::Table do
         t[:name].link_to(:url).via mock_root
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'td a', with: { href: '/awesomepath/' }
-      end
+      expect(table.to_s).to(have_tag('table') { with_tag 'td a', with: { href: '/awesomepath/' } })
       expect(mock_root).to have_received(:url_for)
     end
 
@@ -182,14 +170,10 @@ describe FluentHelpers::Helpers::Table do
         t[:name].named(:whoop)
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'thead tr th' do
-          with_text 'whoop'
-        end
-        with_tag 'tbody tr td' do
-          with_text 'Alice'
-        end
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag('thead tr th')
+        with_tag('tbody tr td')
+      })
     end
 
     example 'unnamed' do
@@ -199,14 +183,10 @@ describe FluentHelpers::Helpers::Table do
         t[:name].unnamed
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'thead tr th' do
-          with_text ''
-        end
-        with_tag 'tbody tr td' do
-          with_text 'Alice'
-        end
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag('thead tr th')
+        with_tag('tbody tr td')
+      })
     end
 
     example 'localized' do
@@ -217,11 +197,9 @@ describe FluentHelpers::Helpers::Table do
         t[:name].localized(:long)
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'tbody tr td' do
-          with_text 'Alice.long'
-        end
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag 'tbody tr td'
+      })
       expect(template).to have_received(:localize).with('Alice', { format: :long })
     end
 
@@ -232,11 +210,9 @@ describe FluentHelpers::Helpers::Table do
         t[:name].as_samp
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'tbody tr td samp' do
-          with_text 'Alice'
-        end
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag('tbody tr td samp')
+      })
     end
 
     example 'align_right' do
@@ -246,11 +222,9 @@ describe FluentHelpers::Helpers::Table do
         t[:name].align_right
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'tbody tr td.text-right' do
-          with_text 'Alice'
-        end
-      end
+      expect(table.to_s).to(have_tag('table') {
+        with_tag('tbody tr td.text-right')
+      })
     end
   end
 
@@ -269,11 +243,11 @@ describe FluentHelpers::Helpers::Table do
         }
       }
 
-      expect(table.to_s).to have_tag('table') do
+      expect(table.to_s).to(have_tag('table') {
         with_tag 'thead tr th.actions'
 
         with_tag 'tbody tr td.action a', text: 'Alice'
-      end
+      })
     end
 
     example 'Spanned header for multiple actions' do
@@ -289,9 +263,7 @@ describe FluentHelpers::Helpers::Table do
         }
       }
 
-      expect(table.to_s).to have_tag('table') do
-        with_tag 'thead tr th.actions', with: { colspan: 2 }
-      end
+      expect(table.to_s).to(have_tag('table') { with_tag 'thead tr th.actions', with: { colspan: 2 } })
     end
 
     describe 'Conditional action' do
@@ -309,9 +281,7 @@ describe FluentHelpers::Helpers::Table do
           t.action(:show).only_if(true)
         }
 
-        expect(table.to_s).to have_tag('table') do
-          with_tag 'tbody tr td.action a', text: 'Alice'
-        end
+        expect(table.to_s).to(have_tag('table') { with_tag 'tbody tr td.action a', text: 'Alice' })
       end
 
       example 'only_if false' do
@@ -322,9 +292,7 @@ describe FluentHelpers::Helpers::Table do
           t.action(:show).only_if(false)
         }
 
-        expect(table.to_s).to have_tag('table') do
-          with_tag 'tbody tr td.action', text: ''
-        end
+        expect(table.to_s).to(have_tag('table') { with_tag 'tbody tr td.action', text: '' })
       end
 
       example 'only_if with Proc returning true' do
@@ -335,9 +303,7 @@ describe FluentHelpers::Helpers::Table do
           t.action(:show).only_if ->(p) { p.name == 'Alice' }
         }
 
-        expect(table.to_s).to have_tag('table') do
-          with_tag 'tbody tr td.action a', text: 'Alice'
-        end
+        expect(table.to_s).to(have_tag('table') { with_tag 'tbody tr td.action a', text: 'Alice' })
       end
 
       example 'only_if with Proc returning false' do
@@ -348,9 +314,7 @@ describe FluentHelpers::Helpers::Table do
           t.action(:show).only_if ->(p) { p.name == 'Bob' }
         }
 
-        expect(table.to_s).to have_tag('table') do
-          with_tag 'tbody tr td.action', text: ''
-        end
+        expect(table.to_s).to(have_tag('table') { with_tag 'tbody tr td.action', text: '' })
       end
     end
   end

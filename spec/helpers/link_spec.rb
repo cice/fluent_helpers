@@ -35,8 +35,6 @@ describe FluentHelpers::Helpers::Link do
   example 'Icon-only link' do
     html = link.iconed(:show_me).to_s
 
-    expect(html).to have_tag('a', with: { title: '..show_me.' }) do
-      with_tag 'span.show-me'
-    end
+    expect(html).to(have_tag('a', with: { title: '..show_me.' }) { with_tag 'i.show-me' })
   end
 end
