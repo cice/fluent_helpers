@@ -6,7 +6,7 @@ module FluentHelpers
       class DropdownSwitch < ::FluentHelpers::Helpers::Base
         def initialize(template)
           super template
-          @params = template.params.except :controller, :action
+          @params = template.params.except(:controller, :action).permit!
           classes :btn, :dropdown_toggle
         end
 

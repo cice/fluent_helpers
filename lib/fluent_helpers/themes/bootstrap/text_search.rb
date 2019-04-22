@@ -6,7 +6,7 @@ module FluentHelpers
       class TextSearch < ::FluentHelpers::Helpers::Base
         def initialize(template)
           super template
-          @params = template.params.except :controller, :action
+          @params = template.params.except(:controller, :action).permit!
         end
 
         def exclude_param(*params, &block)

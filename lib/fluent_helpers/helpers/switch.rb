@@ -5,7 +5,7 @@ module FluentHelpers
     class Switch < Link
       def initialize(template)
         super template
-        @params = template.params.except :controller, :action
+        @params = template.params.except(:controller, :action).permit!
         as_btn
       end
 
